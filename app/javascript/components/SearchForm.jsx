@@ -1,6 +1,6 @@
 import React from 'react'
 
-export function SearchForm({ onSearch, data, setData }) {
+export function SearchForm({ onSearch, data, setData, processing }) {
   const { resourceType, query } = data
   const placeholderText = resourceType === 'people' ? 'Search for people' : 'Search for movies';
 
@@ -48,7 +48,7 @@ export function SearchForm({ onSearch, data, setData }) {
         disabled={!query}
         type="submit"
       >
-        Search
+        {processing ? 'Searching...': 'Search'}
       </button>
     </form>
   )

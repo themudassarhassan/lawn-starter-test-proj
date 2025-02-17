@@ -19,7 +19,7 @@ export default function Index({ results, query, resource_type }) {
   return (
     <div className="flex flex-col items-start md:flex-row justify-center mt-10 gap-6">
       <section className="w-full md:w-96 flex-shrink-0 bg-white rounded-lg shadow-md p-6">
-        <SearchForm onSearch={handleSearch} data={data} setData={setData} />
+        <SearchForm onSearch={handleSearch} data={data} setData={setData} processing={processing} />
       </section>
 
       <section className="w-full md:w-[600px] min-h-[600px] bg-white rounded-lg shadow-md p-6">

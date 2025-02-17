@@ -4,6 +4,9 @@ require "json"
 class SwapiService
   class UnknownResourceType < StandardError
   end
+  
+  class ResourceNotFound < StandardError
+  end
 
   BASE_URL = "https://swapi.py4e.com/api".freeze
   PEOPLE = "people".freeze
@@ -41,8 +44,10 @@ class SwapiService
 
       if response.is_a?(Net::HTTPSuccess)
         JSON.parse(response.body)
+      elsif response.code == '404'
+        raise ResourceNotFound, "#{type} with given id = #{id} is not found"
       else
-        { error: "Failed to fetch data", status: response.code }
+        raise StandardError, response.code
       end
     end
 
