@@ -22,7 +22,6 @@ class SwapiSearcher
 
   def validate_inputs!
     raise ArgumentError, "Invalid search type: #{type}. Valid types are: #{VALID_TYPES.join(', ')}" unless VALID_TYPES.include?(type)
-    raise ArgumentError, "Search query cannot be nil" if query.nil?
   end
 
   def fetch_results

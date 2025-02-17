@@ -58,10 +58,10 @@ end
 
 group :test do
   # Testing
-  gem 'rspec-rails'
-  
+  gem "rspec-rails"
+
   # Stubbing/testing HTTP requests
-  gem 'webmock'
+  gem "webmock"
 end
 
 gem "inertia_rails", "~> 3.6"

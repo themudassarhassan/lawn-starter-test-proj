@@ -12,7 +12,7 @@ class SwapiService
   VALID_TYPES = [ PEOPLE, FILMS ]
 
   class << self
-    def get_all(type, search_query:)
+    def get_all(type, search_query: "")
       raise UnknownResourceType unless VALID_TYPES.include?(type)
 
       fetch type, search_query:
