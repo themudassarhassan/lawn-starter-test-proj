@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/rails
+      - bundle_cache:/usr/local/bundle
+      - node_modules:/rails/node_modules
+      - storage:/rails/storage
+    environment:
+      - RAILS_ENV=development
+    command: bin/rails server -b 0.0.0.0
+    tty: true
+    stdin_open: true
+
+  css:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/rails
+      - bundle_cache:/usr/local/bundle
+      - node_modules:/rails/node_modules
+    command: bin/rails tailwindcss:watch
+    tty: true
+
+  vite:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/rails
+      - bundle_cache:/usr/local/bundle
+      - node_modules:/rails/node_modules
+    command: bin/vite dev
+    ports:
+      - "3036:3036"
+    tty: true
+
+  job:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/rails
+      - bundle_cache:/usr/local/bundle
+      - storage:/rails/storage
+    command: sh -c "bin/rails db:prepare && bin/jobs"
+    environment:
+      - RAILS_ENV=development
+    tty: true
+
+volumes:
+  bundle_cache:
+  node_modules:
+  storage:
