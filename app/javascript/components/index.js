@@ -1,3 +1,4 @@
 export * from './ResultItem'
-export * from './NoResultsFound'
+export * from './NotFoundMessage'
 export * from './SearchForm'
+export * from './CenterContainer'
