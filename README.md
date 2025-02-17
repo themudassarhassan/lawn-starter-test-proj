@@ -1,24 +1,29 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This application is a full-stack web app which has integration with StarsWar API to search and get resources. Currently, the application has support for `movies` and `characters`.
 
-Things you may want to cover:
 
-* Ruby version
+### Tech Stack
 
-* System dependencies
+The application is developed using Ruby on Rails with React using [Inertia](https://inertia-rails.dev/).
 
-* Configuration
+The application uses cache to avoid making same requests to fetch resource again. Right now the expiry of cache is 12 hours.
+### Local Setup
 
-* Database creation
+The application setup is tested via docker on Macbook M1. In order to run the application locally please make sure to install Docker version 20+ on your machine.
 
-* Database initialization
+Run the following command:
+```
+docker compose up
+```
 
-* How to run the test suite
+It will start web server and background job server. Visit http://localhost:3000
 
-* Services (job queues, cache servers, search engines, etc.)
+### Specs
 
-* Deployment instructions
+To run specs, run the following command.
 
-* ...
+```
+bundle exec rspec
+```
+You will need to setup Ruby and install dependencies for running specs locally.
