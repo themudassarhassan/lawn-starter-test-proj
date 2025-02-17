@@ -16,14 +16,15 @@ class StatisticsCalculator
 
   def self.calculate_top_queries
     total_queries = Query.count
-    query_counts = Query.group(:query_text).count
+    top_five_queries = Query.group(:query_text)
+                           .order(count_all: :desc)
+                           .limit(5)
+                           .count
 
-    query_counts.sort_by { |_, count| -count }
-               .take(5)
-               .map do |query, count|
-                 percentage = (count.to_f / total_queries * 100).round(2)
-                 { query: query, percentage: percentage }
-               end
+    top_five_queries.map do |query, count|
+      percentage = (count.to_f / total_queries * 100).round(2)
+      { query: query, percentage: percentage }
+    end
   end
 
   def self.calculate_average_response_time
@@ -31,8 +32,10 @@ class StatisticsCalculator
   end
 
   def self.calculate_most_popular_hour
-    hour_counts = Query.group("strftime('%H', created_at)").count
-    most_popular_hour = hour_counts.max_by { |_, count| count }
+    most_popular_hour = Query.group("strftime('%H', created_at)")
+                             .order(count_all: :desc)
+                             .limit(1)
+                             .count.first
 
     {
       hour: most_popular_hour&.first.to_i,

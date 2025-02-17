@@ -4,7 +4,7 @@ require "json"
 class SwapiService
   class UnknownResourceType < StandardError
   end
-  
+
   class ResourceNotFound < StandardError
   end
 
@@ -44,7 +44,7 @@ class SwapiService
 
       if response.is_a?(Net::HTTPSuccess)
         JSON.parse(response.body)
-      elsif response.code == '404'
+      elsif response.code == "404"
         raise ResourceNotFound, "#{type} with given id = #{id} is not found"
       else
         raise StandardError, response.code
