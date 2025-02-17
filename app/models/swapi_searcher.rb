@@ -14,7 +14,14 @@ class SwapiSearcher
   def call
     return [] if query.empty?
 
+    start_time = Time.now
+
     search_results = fetch_results
+
+    duration = (Time.now - start_time) * 1000
+
+    create_query_record(duration)
+
     parse_results(search_results)
   end
 
@@ -26,6 +33,14 @@ class SwapiSearcher
 
   def fetch_results
     SwapiService.get_all(type, search_query: query)
+  end
+
+  def create_query_record(duration)
+    Query.create!(
+      query_text: query,
+      resource_type: type,
+      response_time: duration
+    )
   end
 
   def parse_results(response)

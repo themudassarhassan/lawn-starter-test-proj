@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   resources :people, only: [ :show ]
   resources :films, only: [ :show ]
+
+  resources :statistics, only: [ :index ]
   # Defines the root path route ("/")
   root "home#index"
 end
