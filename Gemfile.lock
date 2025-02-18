@@ -367,6 +367,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   brakeman
+  concurrent-ruby
   debug
   inertia_rails (~> 3.6)
   jbuilder

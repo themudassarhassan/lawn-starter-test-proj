@@ -1,4 +1,6 @@
 class FilmsController < ApplicationController
+  include SwapiResourceFetcher
+
   def show
     film = SwapiService.get_film params[:id]
 
@@ -10,16 +12,6 @@ class FilmsController < ApplicationController
   private
 
   def fetch_film_characters(character_uris)
-    character_uris.map do |character_uri|
-      character_id = extract_character_id(character_uri)
-
-      character = SwapiService.get_person character_id
-
-      { label: character["name"], href: person_path(character_id) }
-    end
-  end
-
-  def extract_character_id(character_uri)
-    URI(character_uri).path.split("/").last
+    fetch_related_resources(character_uris, :person, "name", :person_path)
   end
 end
